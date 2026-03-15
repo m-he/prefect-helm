@@ -128,3 +128,19 @@ migrations:
 #####################################################################
 serviceAccount:
   create: true
+
+redis:
+  enabled: true
+  master:
+  persistence:
+    enabled: true
+    storageClass: standard-rwo
+    size: 8Gi
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: "1"
+      memory: 1Gi
