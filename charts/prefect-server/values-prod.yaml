@@ -63,7 +63,7 @@ ingress:
   className: gce
   annotations:
     kubernetes.io/ingress.class: "gce"
-    networking.gke.io/managed-certificates: "prefect-tls-cert"
+    # networking.gke.io/managed-certificates: "prefect-tls-cert"
     kubernetes.io/ingress.global-static-ip-name: "prefect-static-ip"
     # 可选：如果你要 HTTPS redirect / SSL policy，再配 FrontendConfig
     # networking.gke.io/frontend-config: "prefect-frontend-config"

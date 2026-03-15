@@ -1,8 +1,8 @@
-apiVersion: networking.gke.io/v1
-kind: ManagedCertificate
-metadata:
-  name: prefect-tls-cert
-  namespace: prefect
-spec:
-  domains:
-    - {{ .Values.global.prefect.host }}
+# apiVersion: networking.gke.io/v1
+# kind: ManagedCertificate
+# metadata:
+#   name: prefect-tls-cert
+#   namespace: prefect
+# spec:
+#   domains:
+#     - {{ .Values.global.prefect.host }}
