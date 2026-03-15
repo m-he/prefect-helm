@@ -10,7 +10,7 @@ global:
   prefect:
     host: prefect.plusai.is
     image:
-      prefectTag: 3-latest
+      prefectTag: 3.6.22
 #####################################################################
 # Prefect API / UI
 #####################################################################
