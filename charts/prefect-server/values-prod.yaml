@@ -111,3 +111,7 @@ secret:
 #####################################################################
 serviceAccount:
   create: true
+
+migrations:
+  # -- enable the migration Job during chart upgrades (only applies when backgroundServices.runAsSeparateDeployment is true)
+  enabled: false
