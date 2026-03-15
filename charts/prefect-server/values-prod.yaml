@@ -47,6 +47,17 @@ service:
     # 对 GKE Ingress/NEG 更友好
     cloud.google.com/neg: '{"ingress": true}'
 
+backgroundServices:
+  runAsSeparateDeployment: false
+  replicaCount: 1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 384Mi
+    limits:
+      cpu: "1"
+      memory: 1Gi
+
 ingress:
   enabled: true
   className: gce
