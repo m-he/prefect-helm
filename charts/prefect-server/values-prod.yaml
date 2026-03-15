@@ -1,67 +1,128 @@
 #####################################################################
-# values-prefect-autopilot.yaml  –  Prefect Server on GKE Autopilot
+# values-prefect-autopilot.yaml
+# Prefect Server on GKE Autopilot
+# - built-in PostgreSQL
+# - built-in Redis
+# - Argo CD friendly
+# - low requests, higher limits for burst / concurrency
 #####################################################################
-
-
-#####################################################################
-# 1. ServiceAccount – pre-created and bound to Workload Identity
-#####################################################################
-serviceAccount:
-  create: false                   # k8s SA ↔ GSA prefect-sql-client
-
 global:
   prefect:
-    image:
-      prefectTag: ${prefectTag}
-
+    host: prefect.plusai.is
 #####################################################################
-# 4. Prefect API & background services
+# Prefect API / UI
 #####################################################################
 server:
   basicAuth:
-    enabled: false                       # belt-and-braces auth
+    enabled: false
+
+  apiBasePath: /api
+
   uiConfig:
-    prefectUiApiUrl: /api
+    prefectUiApiUrl: "https://prefect.plusai.is/api"
+
   autoscaling:
     enabled: true
     minReplicas: 1
     maxReplicas: 4
-    targetCPU: 90
-    targetMemory: 90
+    targetCPU: 80
+    targetMemory: 85
 
   resources:
     requests:
-      cpu: 500m
+      cpu: 200m
       memory: 512Mi
     limits:
       cpu: "2"
       memory: 2Gi
 
+#####################################################################
+# Background services
+# 建议拆开，便于独立控资源；当前保持 1 副本
+#####################################################################
+backgroundServices:
+  runAsSeparateDeployment: true
+  replicaCount: 1
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 384Mi
+    limits:
+      cpu: "1"
+      memory: 1Gi
 
 #####################################################################
-# 2. Ingress – GCE External HTTP(S) LB + Google-managed TLS
+# Service / Ingress
 #####################################################################
+service:
+  type: ClusterIP
+  annotations:
+    # 对 GKE Ingress/NEG 更友好
+    cloud.google.com/neg: '{"ingress": true}'
 
 ingress:
   enabled: true
   className: gce
   annotations:
     kubernetes.io/ingress.class: "gce"
-    networking.gke.io/managed-certificates: prefect-tls-cert
-    kubernetes.io/ingress.global-static-ip-name: prefect-static-ip
-    # networking.gke.io/frontend-config: prefect-frontend-config
+    networking.gke.io/managed-certificates: "prefect-tls-cert"
+    kubernetes.io/ingress.global-static-ip-name: "prefect-static-ip"
+    # 可选：如果你要 HTTPS redirect / SSL policy，再配 FrontendConfig
+    # networking.gke.io/frontend-config: "prefect-frontend-config"
+
   host:
-    hostname: prefect.plusai.is
+    hostname: "prefect.plusai.is"
+    path: /
     pathType: Prefix
 
-
 #####################################################################
-# 4. Disable bundled Postgres – we use Cloud SQL instead
+# Built-in PostgreSQL
 #####################################################################
 postgresql:
-  enabled: false    # use Cloud SQL connection string
+  enabled: true
   auth:
-    existingSecret: prefect-db-conn
+    username: prefect
+    database: server
+    existingSecret: prefect-postgresql-auth
+    secretKeys:
+      userPasswordKey: password
 
+  primary:
+    persistence:
+      enabled: true
+      storageClass: standard-rwo
+      size: 20Gi
+
+    resources:
+      requests:
+        cpu: 250m
+        memory: 512Mi
+      limits:
+        cpu: "2"
+        memory: 2Gi
+
+#####################################################################
+# Keep auto-created DB connection secret
+#####################################################################
 secret:
   create: false
+
+#####################################################################
+# Migration job
+#####################################################################
+migrations:
+  enabled: true
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi
+
+#####################################################################
+# ServiceAccounts
+#####################################################################
+serviceAccount:
+  create: true
