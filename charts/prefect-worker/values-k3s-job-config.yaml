@@ -3,7 +3,7 @@ worker:
     baseJobTemplate:
       configuration: |
         {
-          "variable":{
+          "variables":{
             "properties": {
               "name": {
                 "default": "k3s-ssdnodes"
