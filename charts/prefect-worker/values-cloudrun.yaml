@@ -5,7 +5,7 @@ worker:
   apiConfig: selfHostedServer
 
   selfHostedServerApiConfig:
-    apiUrl: "http://prefect.plusai.is/api"
+    apiUrl: "https://prefect.plusai.is/api"
     basicAuth:
       enabled: false
   image:
