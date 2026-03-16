@@ -1,5 +1,5 @@
 # values-prefect-worker-gke-autopilot-cloudrunv2.yaml
-
+fullnameOverride: "prefect-worker-cloudrun"
 worker:
   apiConfig: selfHostedServer
 
