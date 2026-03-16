@@ -9,7 +9,7 @@ worker:
       enabled: false
   image:
     repository: prefecthq/prefect
-    prefectTag: "3.6.22-python3.13"
+    prefectTag: "3.6.22-python3.13-kubernetes"
     pullPolicy: IfNotPresent
 
   config:
