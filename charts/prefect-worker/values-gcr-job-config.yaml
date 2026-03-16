@@ -1,0 +1,32 @@
+worker:
+  config:
+    baseJobTemplate:
+      configuration: |
+      {
+        "variable":{
+          "properties": {
+            "env": {
+              "default": {
+                "PREFECT_API_URL": "https://prefect.plusai.is/api"
+               }
+            },
+            "image": {
+              "default": "prefecthq/prefect:3.6.22-python3.13"
+            },
+            "region": {
+              "default": "us-west1",
+            },
+            "env_from_secrets": {
+              "default": {
+                "PREFECT_CLIENT_CUSTOM_HEADERS": {
+                  "secret": "PREFECT_CF_HEADER",
+                  "version": "latest"
+                }
+              }
+            },
+            "service_account_name": {
+              "default": "prefect-worker@prefect-automation-490317.iam.gserviceaccount.com",
+            },
+          }
+        }
+      }

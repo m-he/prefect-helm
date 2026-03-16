@@ -1,0 +1,19 @@
+worker:
+  config:
+    baseJobTemplate:
+      configuration: |
+      {
+        "variable":{
+          "properties": {
+            "image": {
+              "default": "prefecthq/prefect:3.6.22-python3.13-kubernetes"
+            },
+            "namespace": {
+              "default": "prefect",
+            },
+            "service_account_name": {
+              "default": "prefect-worker-local-k3s",
+            },
+          }
+        }
+      }

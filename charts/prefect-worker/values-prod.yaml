@@ -13,7 +13,7 @@ worker:
     pullPolicy: IfNotPresent
 
   config:
-    workPool: "gcr-pool"
+    workPool: "gcp-cloud-run-v2"
     type: "cloud-run-v2"
     installPolicy: "never"
     queryInterval: 10
