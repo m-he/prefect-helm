@@ -1,5 +1,5 @@
-# values-prefect-worker-gke-autopilot-cloudrunv2.yaml
-
+nameOverride: "prefect-worker-local-k3s"
+fullnameOverride: "prefect-worker-local-k3s"
 worker:
   apiConfig: selfHostedServer
 
@@ -55,7 +55,7 @@ worker:
 
 serviceAccount:
   create: true
-  name: "prefect-worker"
+  name: "prefect-worker-local-k3s"
 
 role:
   create: true
