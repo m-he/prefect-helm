@@ -24,6 +24,8 @@ server:
     prefectUiApiUrl: "https://prefect.plusai.is/api"
 
   replicaCount: 2
+  autoscaling:
+    enabled: false
   resources:
     requests:
       cpu: 200m
