@@ -1,0 +1,64 @@
+# values-prefect-worker-gke-autopilot-cloudrunv2.yaml
+
+worker:
+  apiConfig: selfHostedServer
+
+  selfHostedServerApiConfig:
+    apiUrl: "http://prefect.plusai.is/api"
+    basicAuth:
+      enabled: false
+  image:
+    repository: prefecthq/prefect-gcp
+    prefectTag: "0.6.17-python3.13"
+    pullPolicy: IfNotPresent
+
+  config:
+    workPool: "gcr-ssdnodes"
+    type: "cloud-run-v2"
+    installPolicy: "never"
+    queryInterval: 10
+    prefetchSeconds: 10
+    http2: true
+    limit: 5
+
+  replicaCount: 1
+
+  livenessProbe:
+    enabled: true
+    config:
+      initialDelaySeconds: 30
+      periodSeconds: 20
+      timeoutSeconds: 5
+      failureThreshold: 3
+      successThreshold: 1
+
+  resources:
+    requests:
+      cpu: 500m
+      memory: 512Mi
+    limits:
+      cpu: "1"
+      memory: 1Gi
+
+  autoscaling:
+    enabled: false
+
+  podAnnotations: {}
+  podLabels:
+    app.kubernetes.io/part-of: prefect
+
+  affinity: {}
+  tolerations: []
+  extraEnvVarsSecrets: 
+    - prefect-worker
+serviceAccount:
+  create: true
+  name: "prefect-worker"
+  annotations:
+    iam.gke.io/gcp-service-account: "prefect-worker@prefect-automation-490317.iam.gserviceaccount.com"
+
+role:
+  create: false
+
+rolebinding:
+  create: false
