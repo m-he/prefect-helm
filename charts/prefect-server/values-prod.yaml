@@ -23,13 +23,7 @@ server:
   uiConfig:
     prefectUiApiUrl: "https://prefect.plusai.is/api"
 
-  autoscaling:
-    enabled: true
-    minReplicas: 1
-    maxReplicas: 4
-    targetCPU: 80
-    targetMemory: 85
-
+  replicaCount: 2
   resources:
     requests:
       cpu: 200m
