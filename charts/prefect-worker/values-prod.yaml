@@ -23,7 +23,6 @@ worker:
 
   replicaCount: 2
   podDisruptionBudget:
-    maxUnavailable: 1
     minAvailable: 1
 
   livenessProbe:
