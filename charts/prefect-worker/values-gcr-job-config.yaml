@@ -5,6 +5,9 @@ worker:
         {
           "variable":{
             "properties": {
+              "name": {
+                "default": "gcp-cloud-run-v2"
+              },
               "env": {
                 "default": {
                   "PREFECT_API_URL": "https://prefect.plusai.is/api"
