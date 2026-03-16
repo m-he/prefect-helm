@@ -54,7 +54,7 @@ worker:
     - prefect-worker
 serviceAccount:
   create: true
-  name: "prefect-worker"
+  name: "prefect-worker-cloudrun"
   annotations:
     iam.gke.io/gcp-service-account: "prefect-worker@prefect-automation-490317.iam.gserviceaccount.com"
 
