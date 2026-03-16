@@ -14,7 +14,7 @@ worker:
                 "default": "prefecthq/prefect:3.6.22-python3.13"
               },
               "region": {
-                "default": "us-west1",
+                "default": "us-west1"
               },
               "env_from_secrets": {
                 "default": {
@@ -25,8 +25,8 @@ worker:
                 }
               },
               "service_account_name": {
-                "default": "prefect-worker@prefect-automation-490317.iam.gserviceaccount.com",
-              },
+                "default": "prefect-worker@prefect-automation-490317.iam.gserviceaccount.com"
+              }
             }
           }
         }
