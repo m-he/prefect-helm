@@ -61,7 +61,7 @@ worker:
                   }
                 ],
                 "title": "Image Name",
-                "default": "prefecthq/prefect:3.6.22-python3.13",
+                "default": "prefecthq/prefect:3.6.26-python3.13",
                 "description": "The image to use for the Cloud Run job. If not provided the default Prefect image will be used."
               },
               "labels": {
