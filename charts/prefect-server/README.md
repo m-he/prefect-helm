@@ -309,7 +309,7 @@ the HorizontalPodAutoscaler.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | common | 2.36.0 |
+| https://charts.bitnami.com/bitnami | common | 2.38.0 |
 | https://charts.bitnami.com/bitnami | postgresql | 12.12.10 |
 | https://charts.bitnami.com/bitnami | redis | 22.0.4 |
 
@@ -335,6 +335,9 @@ the HorizontalPodAutoscaler.
 | backgroundServices.loggingLevel | string | `"WARNING"` | sets PREFECT_LOGGING_SERVER_LEVEL |
 | backgroundServices.messaging.broker | string | `"prefect_redis.messaging"` | messaging broker class to use for background services |
 | backgroundServices.messaging.cache | string | `"prefect_redis.messaging"` | messaging cache class to use for background services |
+| backgroundServices.messaging.docket.existingSecret | string | `""` | name of an existing Kubernetes secret containing the Docket URL takes precedence over the url field above the secret should contain a key with the full Redis URL including any credentials |
+| backgroundServices.messaging.docket.existingSecretKey | string | `"docket-url"` | key within the existing secret that contains the Docket URL |
+| backgroundServices.messaging.docket.url | string | `""` | URL for the Docket scheduler backend examples: redis://host:6379/0, rediss://host:6379/0 (TLS), redis://user:pass@host:6379/0 leave empty to use the default in-memory backend (memory://) |
 | backgroundServices.messaging.redis | object | `{"db":0,"existingSecret":"","existingSecretPasswordKey":"redis-password","host":"","password":"","port":6379,"ssl":false,"username":""}` | settings for redis broker/cache change these if not using the built-in redis subchart |
 | backgroundServices.messaging.redis.db | int | `0` | redis database number |
 | backgroundServices.messaging.redis.existingSecret | string | `""` | name of an existing Kubernetes secret containing the redis password takes precedence over the password field above |
@@ -425,6 +428,9 @@ the HorizontalPodAutoscaler.
 | migrations.extraVolumeMounts | list | `[]` | additional volume mounts for the migration job |
 | migrations.extraVolumes | list | `[]` | additional volumes for the migration job |
 | migrations.nodeSelector | object | `{}` | node labels for migration job pods assignment |
+| migrations.podSecurityContext.fsGroup | int | `1001` | set migration job's pod security context fsGroup |
+| migrations.podSecurityContext.runAsNonRoot | bool | `true` | set migration job's pod security context runAsNonRoot |
+| migrations.podSecurityContext.runAsUser | int | `1001` | set migration job's pod security context runAsUser |
 | migrations.resources | object | `{"limits":{"cpu":"500m","memory":"256Mi"},"requests":{"cpu":"100m","memory":"128Mi"}}` | job resources configuration |
 | migrations.restartPolicy | string | `"Never"` | job restart policy |
 | migrations.securityContext | object | `{"allowPrivilegeEscalation":false,"capabilities":{},"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":1001}` | job security context configuration |
@@ -507,6 +513,7 @@ the HorizontalPodAutoscaler.
 | server.uiConfig.prefectUiStaticDirectory | string | `"/ui_build"` | sets PREFECT_UI_STATIC_DIRECTORY |
 | server.updateStrategy | object | `{"type":"RollingUpdate"}` | Specifies the strategy used to replace old Pods by new ones. Type can be "Recreate" or "RollingUpdate". Setting this to "Recreate" is useful when database is on a mounted volume that can only be attached to a single node at a time. |
 | service.annotations | object | `{}` | additional custom annotations for server service |
+| service.appProtocol | string | `""` | application protocol of the port (e.g. "http") |
 | service.clusterIP | string | `""` | service Cluster IP |
 | service.externalTrafficPolicy | string | `"Cluster"` | service external traffic policy |
 | service.extraPorts | list | `[]` |  |
