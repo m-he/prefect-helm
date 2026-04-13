@@ -28,7 +28,7 @@ server:
     enabled: true
     maxReplicas: 2
     targetCPU: 500
-    targetMemory: 200
+    targetMemory: 400
   resources:
     requests:
       cpu: 200m
