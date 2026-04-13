@@ -109,6 +109,7 @@ worker:
                   }
                 ],
                 "title": "Finished Job TTL",
+                "default": 300,
                 "description": "The number of seconds to retain jobs after completion. If set, finished jobs will be cleaned up by Kubernetes after the given delay. If not set, jobs will be retained indefinitely."
               },
               "image_pull_policy": {
