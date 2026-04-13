@@ -27,10 +27,12 @@ server:
   autoscaling:
     enabled: true
     maxReplicas: 2
+    targetCPU: 500
+    targetMemory: 200
   resources:
     requests:
       cpu: 200m
-      memory: 512Mi
+      memory: 384Mi
     limits:
       cpu: "2"
       memory: 2Gi
@@ -90,8 +92,8 @@ postgresql:
 
     resources:
       requests:
-        cpu: 100m
-        memory: 512Mi
+        cpu: 50m
+        memory: 256Mi
       limits:
         cpu: "2"
         memory: 2Gi
