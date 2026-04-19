@@ -23,7 +23,7 @@ worker:
 
   replicaCount: 1
   podDisruptionBudget:
-    minAvailable: 1
+    minAvailable: 0
 
   livenessProbe:
     enabled: true
