@@ -3,7 +3,7 @@ kind: PodDisruptionBudget
 metadata:
   name: prefect-server-pdb
 spec:
-  minAvailable: 1
+  minAvailable: 0
   selector:
     matchLabels:
       app.kubernetes.io/name: prefect-server

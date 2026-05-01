@@ -20,6 +20,11 @@ metadata:
     {{- end }}
   {{- end }}
 spec:
+  defaultBackend:
+    service:
+      name: prefect-server
+      port:
+        number: 4200
   {{- if .Values.ingress.className }}
   ingressClassName: {{ .Values.ingress.className | quote }}
   {{- end }}
