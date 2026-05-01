@@ -43,7 +43,7 @@ worker:
                   }
                 ],
                 "title": "Image",
-                "default": "prefecthq/prefect:3.6.26-python3.13-kubernetes",
+                "default": "prefecthq/prefect:3.6.28-python3.13-kubernetes",
                 "examples": [
                   "docker.io/prefecthq/prefect:3-latest"
                 ],
